@@ -30,13 +30,18 @@ function getHumanChoice(){
 }
 
 function playRound (humanChoice, computerChoice){
+    console.log("You choose " + humanChoice);
+    console.log("Cpu choose " + computerChoice);
+
     if(humanChoice === computerChoice){
         console.log('Both players chose ' + humanChoice + ". Round is TIE");
     }else if ((humanChoice === 'rock' && computerChoice === 'scissors') || (humanChoice === 'paper' && computerChoice === 'rock') || (humanChoice === 'scissors' && computerChoice === 'paper')){
-        console.log(humanChoice + ' beats ' + computerChoice + '. YOU are the winner!!!');
+        console.log(humanChoice + ' beats ' + computerChoice + '. YOU won the round!!!');
         humanScore++;
     }else{
-        console.log(computerChoice + ' beats ' + humanChoice + '. CPU is the winner!!!');
+        console.log(computerChoice + ' beats ' + humanChoice + '. CPU won the round!!!');
         computerScore++;
     }
 }
+
+playRound(getHumanChoice(), getComputerChoice());
