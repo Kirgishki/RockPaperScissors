@@ -35,13 +35,42 @@ function playRound (humanChoice, computerChoice){
 
     if(humanChoice === computerChoice){
         console.log('Both players chose ' + humanChoice + ". Round is TIE");
+        return 0;
     }else if ((humanChoice === 'rock' && computerChoice === 'scissors') || (humanChoice === 'paper' && computerChoice === 'rock') || (humanChoice === 'scissors' && computerChoice === 'paper')){
         console.log(humanChoice + ' beats ' + computerChoice + '. YOU won the round!!!');
-        humanScore++;
+        return 1;
     }else{
         console.log(computerChoice + ' beats ' + humanChoice + '. CPU won the round!!!');
-        computerScore++;
+        return 2;
     }
 }
 
-playRound(getHumanChoice(), getComputerChoice());
+function playGame (){
+    let round = 1;
+    let humanScore = 0;
+    let cpuScore = 0;
+
+    while(round < 6){
+        const humanSelection = getHumanChoice();
+        const cpuSelection = getComputerChoice();
+        let roundResult;
+       
+        roundResult = playRound(humanSelection, cpuSelection);
+
+        switch (roundResult) {
+            case 1:
+                humanScore++;
+                break;
+            case 2:
+                cpuScore++;
+                break;
+            default:
+                break;
+        }
+        round ++;
+    }
+
+    console.log('Final score:\nYOU: ' + humanScore + '\nCPU: ' + cpuScore);
+}
+
+playGame();
