@@ -28,3 +28,15 @@ function getHumanChoice(){
             return getHumanChoice();
     }
 }
+
+function playRound (humanChoice, computerChoice){
+    if(humanChoice === computerChoice){
+        console.log('Both players chose ' + humanChoice + ". Round is TIE");
+    }else if ((humanChoice === 'rock' && computerChoice === 'scissors') || (humanChoice === 'paper' && computerChoice === 'rock') || (humanChoice === 'scissors' && computerChoice === 'paper')){
+        console.log(humanChoice + ' beats ' + computerChoice + '. YOU are the winner!!!');
+        humanScore++;
+    }else{
+        console.log(computerChoice + ' beats ' + humanChoice + '. CPU is the winner!!!');
+        computerScore++;
+    }
+}
