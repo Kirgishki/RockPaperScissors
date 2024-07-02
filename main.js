@@ -1,10 +1,11 @@
 var humanScore = 0;
-var computerScore = 0;
+var cpuScore = 0;
+var round = 1;
 
 const buttons = document.querySelector("#buttonsContainer");
 
 buttons.addEventListener("click", (e)=>{
-    playRound(e.target.innerText, getComputerChoice());
+    playGame(e.target.innerText.toLowerCase(), getComputerChoice());
 });
 
 function getComputerChoice(){
@@ -36,28 +37,24 @@ function getHumanChoice(){
 }
 
 function playRound (humanChoice, computerChoice){
-    console.log("You choose " + humanChoice);
-    console.log("Cpu choose " + computerChoice);
+    const resultPara = document.querySelector("#results");
+    resultPara.innerText =  "You choose " + humanChoice + "\nCpu choose " + computerChoice;
 
     if(humanChoice === computerChoice){
-        console.log('Both players chose ' + humanChoice + ". Round is TIE");
+        resultPara.innerText += '\nBoth players chose ' + humanChoice + ". Round is TIE";
         return 0;
     }else if ((humanChoice === 'rock' && computerChoice === 'scissors') || (humanChoice === 'paper' && computerChoice === 'rock') || (humanChoice === 'scissors' && computerChoice === 'paper')){
-        console.log(humanChoice + ' beats ' + computerChoice + '. YOU won the round!!!');
+        resultPara.innerText += '\n' + humanChoice + ' beats ' + computerChoice + '. YOU won the round!!!';
         return 1;
     }else{
-        console.log(computerChoice + ' beats ' + humanChoice + '. CPU won the round!!!');
+        resultPara.innerText += '\n' + computerChoice + ' beats ' + humanChoice + '. CPU won the round!!!';
         return 2;
     }
 }
 
-function playGame (){
-    let round = 1;
-    let humanScore = 0;
-    let cpuScore = 0;
-
-    while(round < 6){
-        const humanSelection = getHumanChoice();
+function playGame (humanChoice){
+    if(round < 6){
+        const humanSelection = humanChoice;
         const cpuSelection = getComputerChoice();
         let roundResult;
        
@@ -73,8 +70,26 @@ function playGame (){
             default:
                 break;
         }
-        round ++;
     }
+    if(round == 5){
+        const finalScorePara = document.querySelector("#finalScore");
+        finalScorePara.innerText = 'Final score:\nYOU: ' + humanScore + '\nCPU: ' + cpuScore;
 
-    console.log('Final score:\nYOU: ' + humanScore + '\nCPU: ' + cpuScore);
+        const resetButton = document.createElement('button');
+        resetButton.innerText = 'New match';
+        
+        finalScorePara.parentNode.appendChild(resetButton);
+
+        resetButton.addEventListener('click', ()=>{
+            document.querySelector("#results").innerText = "";
+            finalScorePara.innerText = "";
+            resetButton.remove();
+
+            humanScore = 0;
+            cpuScore = 0;
+            round = 1;
+        });
+    }
+    round ++;
 }
+
