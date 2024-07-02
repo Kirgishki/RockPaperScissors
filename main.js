@@ -1,6 +1,12 @@
 var humanScore = 0;
 var computerScore = 0;
 
+const buttons = document.querySelector("#buttonsContainer");
+
+buttons.addEventListener("click", (e)=>{
+    playRound(e.target.innerText, getComputerChoice());
+});
+
 function getComputerChoice(){
     let choices = ['rock', 'paper', 'scissors'];
     let choice  = choices[Math.floor(Math.random() * choices.length)];
@@ -72,5 +78,3 @@ function playGame (){
 
     console.log('Final score:\nYOU: ' + humanScore + '\nCPU: ' + cpuScore);
 }
-
-playGame();
